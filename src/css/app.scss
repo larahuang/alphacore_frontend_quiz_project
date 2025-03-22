@@ -1,1 +1,80 @@
 // app global css in SCSS form
+body {
+  background-color: #ffff;
+  font-size: 20px;
+}
+.material-icons {
+  margin-left: 100px;
+}
+%flex {
+  display: flex;
+}
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+%flex-center {
+  justify-content: center;
+}
+%flex-start {
+  justify-content: flex-start;
+}
+%flex-stretch {
+  justify-content: stretch;
+}
+//登入
+.login_form_area {
+  @extend %flex-column;
+  @extend %flex-center;
+  margin: 50px auto;
+  .title {
+    @extend %flex-column;
+    @extend %flex-center;
+    font-size: 1rem;
+    margin: 20px auto;
+  }
+  .q-form {
+    @extend %flex-column;
+    @extend %flex-center;
+    margin: 50px auto;
+    width: 40%;
+    max-width: 40%;
+    .q-field {
+      width: 100%;
+      max-width: 100%;
+      .q-field__inner {
+        background-color: #ffff;
+      }
+      margin-bottom: 10px;
+    }
+    .verification {
+      display: flex;
+      flex-direction: row;
+      @extend %flex-stretch;
+      width: 100%;
+      .q-field {
+        width: 70%;
+        max-width: 70%;
+      }
+      .codeBox {
+        align-items: center;
+        color: $info;
+        display: flex;
+        margin-left: 10px;
+      }
+      .material-icons {
+        color: $info;
+        cursor: pointer;
+        font-size: 32px;
+        margin-left: 15px;
+      }
+    }
+    .btn_group {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (width <= 820px) {
+}

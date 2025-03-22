@@ -4,11 +4,26 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [
+      {
+        path: '',
+        component: () => import('pages/IndexPage.vue'),
+        name: 'Login',
+      },
+    ],
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
+  {
+    path: '/admin/',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      {
+        path: 'index',
+        name: 'Admin',
+        component: () => import('pages/Dashboard/orderLists.vue'),
+        meta: { title: 'admin', requiresAuth: true },
+      },
+    ],
+  },
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

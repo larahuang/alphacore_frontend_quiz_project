@@ -3,7 +3,7 @@
 
 import { defineConfig } from '#q-app/wrappers';
 import { fileURLToPath } from 'node:url';
-// require('dotenv').config();
+
 export default defineConfig((ctx) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -54,9 +54,7 @@ export default defineConfig((ctx) => {
       // publicPath: '/',
       // analyze: true,
       env: {
-        // You have to manually define all the variables you want to pass in
         API_URL: process.env.DEFAULT_API,
-        // ...
       },
       // rawDefine: {}
       // ignorePublicFolder: true,
