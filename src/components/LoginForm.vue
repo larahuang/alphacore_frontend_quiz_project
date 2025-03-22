@@ -1,4 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <template>
   <div class="login_form_area">
     <div class="title">
@@ -10,16 +9,31 @@
         label="您的帳號 *"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || '請輸入您的帳號!']"
-      />
+      >
+        <template v-slot:prepend>
+          <q-icon name="account_circle" />
+        </template>
+      </q-input>
 
       <q-input
-        type="password"
+        class="password"
         v-model="loginForm.password"
+        :type="passwordVisible ? 'password' : 'text'"
         label="您的密碼 *"
         lazy-rules
         :rules="[(val) => (val !== null && val !== '') || '請輸入您的密碼']"
-      />
-
+      >
+        <template v-slot:prepend>
+          <q-icon name="lock" />
+        </template>
+        <template v-slot:append>
+          <q-icon
+            :name="passwordVisible ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="passwordVisible = !passwordVisible"
+          />
+        </template>
+      </q-input>
       <div class="verification">
         <q-input
           type="text"
@@ -33,7 +47,7 @@
       </div>
 
       <div class="btn_group">
-        <q-btn label="重置" type="reset" color="primary" flat class="q-ml-sm" />
+        <q-btn label="重置" type="reset" color="primary" flat />
         <q-btn label="登入" type="submit" color="primary" />
       </div>
     </q-form>
@@ -41,14 +55,11 @@
 </template>
 
 <script setup lang="ts">
-//, computed
 import { ref, onMounted } from 'vue';
-import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import type { loginFormType } from '../type/type';
 const router = useRouter();
-const $q = useQuasar();
 const title = ref<string>('請先登入');
 const loginForm = ref<loginFormType>({
   username: '',
@@ -58,37 +69,9 @@ const loginForm = ref<loginFormType>({
 const username = ref<string>('');
 const password = ref<string>('');
 const accept = ref(false);
-/*
-const checkLoginForms = computed(() => {
-  if (
-    loginForm.value.username == '' ||
-    loginForm.value.password == '' ||
-    loginForm.value.verification == ''
-  ) {
-    return true;
-  } else if (
-    loginForm.value.username != '' &&
-    loginForm.value.password != '' &&
-    loginForm.value.verification != ''
-  ) {
-    // $q.notify({
-    //   color: 'green-4',
-    //   textColor: 'white',
-    //   icon: 'cloud_done',
-    //   message: 'Submitted',
-    // });
-    return true;
-  } else {
-    // $q.notify({
-    //   color: 'red-5',
-    //   textColor: 'white',
-    //   icon: 'warning',
-    //   message: 'You need to accept the license and terms first',
-    // });
-    return false;
-  }
-});
-*/
+
+const passwordVisible = ref(true);
+
 // 驗證碼產生
 const code_box = ref<string>('');
 // 產生驗證碼
@@ -117,17 +100,16 @@ const loginSubmit = () => {
     };
     axios
       .post(api, query)
-      .then(function (res) {
+      .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
           const user = {
             id: res.data.id,
-            usernam: res.data.username,
+            username: res.data.username,
             token: res.data.token,
           };
           const userString = JSON.stringify(user);
           localStorage.setItem('User', userString);
-          console.log(user);
           void router.push({ path: `/admin/index` });
         }
       })
@@ -139,9 +121,6 @@ const loginSubmit = () => {
   } catch (err: never | unknown | null) {
     console.log(err);
   }
-  // } else {
-  //   console.log('驗證錯誤');
-  // }
 };
 const loginReset = () => {
   username.value = '';
@@ -150,12 +129,5 @@ const loginReset = () => {
 };
 onMounted(() => {
   generateCode();
-  console.log($q);
-  // $q.notify({
-  //   // color: 'green-4',
-  //   // textColor: 'white',
-  //   // icon: 'cloud_done',
-  //   // message: 'Submitted',
-  // });
 });
 </script>

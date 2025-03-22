@@ -3,8 +3,16 @@ body {
   background-color: #ffff;
   font-size: 20px;
 }
-.material-icons {
-  margin-left: 100px;
+.q-toolbar {
+  min-height: 70px;
+  .q-toolbar__title,
+  .version {
+    color: #333;
+    font-weight: 500;
+  }
+}
+.q-field--standard .q-field__control:before {
+  border-bottom: 1px solid #068292;
 }
 %flex {
   display: flex;
@@ -30,7 +38,7 @@ body {
   .title {
     @extend %flex-column;
     @extend %flex-center;
-    font-size: 1rem;
+    font-size: 1.3rem;
     margin: 20px auto;
   }
   .q-form {
@@ -46,6 +54,25 @@ body {
         background-color: #ffff;
       }
       margin-bottom: 10px;
+    }
+    .password {
+      .cursor-pointer {
+        font-size: 26px;
+      }
+      .items-center {
+        .material-icons {
+          color: #0000008a;
+          &.cursor-pointer {
+            color: #31ccec;
+          }
+        }
+      }
+      .q-anchor--skip {
+        .material-icons {
+          font-size: 24px;
+          margin-left: 0px;
+        }
+      }
     }
     .verification {
       display: flex;
@@ -72,9 +99,55 @@ body {
     .btn_group {
       display: flex;
       justify-content: center;
+      .q-hoverable {
+        background-color: #ddd;
+        border: 1px solid #ddd;
+        color: #333;
+      }
+      .bg-primary {
+        margin-left: 10px;
+      }
     }
   }
 }
 
 @media screen and (width <= 820px) {
+}
+
+@media screen and (width <= 768px) {
+  //登入
+  .login_form_area .q-form {
+    width: 70%;
+    max-width: 70%;
+  }
+}
+@media screen and (width <= 767px) {
+}
+@media screen and (width <= 676px) {
+}
+@media screen and (width <= 640px) {
+}
+@media screen and (width <= 600px) {
+}
+@media screen and (width <= 568px) {
+}
+@media screen and (width <= 533px) {
+}
+@media screen and (width <= 480px) {
+}
+@media screen and (width <= 430px) {
+  //登入
+  .login_form_area .q-form {
+    width: 85%;
+    max-width: 85%;
+  }
+}
+@media screen and (width <= 414px) {
+}
+@media screen and (width <= 360px) {
+  //登入
+  .q-toolbar__title,
+  .version {
+    font-size: 1.2rem;
+  }
 }
